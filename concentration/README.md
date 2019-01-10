@@ -4,4 +4,4 @@ This folder contains the concentration game project. Players tapping cards withi
 
 ## Screenshots
 
-![Concentration](/screenshots/screenshot.png?raw=true "Concentration")
+![Concentration](screenshots/screenshot.png?raw=true "Concentration")
