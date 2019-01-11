@@ -1,17 +1,16 @@
 
-Developing iOS 11 Apps with Swift:
---------------------------------------------------------------------
+# Developing iOS 11 Apps with Swift:
 
-Tips and Tricks:
+## Tips and Tricks:
  - Hold down option key, mouse over, and click class members to view documentation
  - You can copy and paste view components within the interface builder (don't forget to unbind copied actions if required)
  - Right-click to view view component binding
  - Can control-click from "view controller" in interface builder header to attach view components
 
-Recommendations:
+## Recommendations:
  - When looking at documentation initially, always read "Overview" section of common classes
 
-Lecture 1: Introduction [https://www.youtube.com/watch?v=pnUFW6NxlSE&list=PL9lXw_XXeiWQGrY5dl0IjFI7tOw_nfI91&index=15]
+## Lecture 1: Introduction
  - You must initialize properties
  - Swift can infer types like C# and Kotlin
  - An "outlet" is an instance variable that points to a view component
@@ -25,9 +24,7 @@ Lecture 1: Introduction [https://www.youtube.com/watch?v=pnUFW6NxlSE&list=PL9lXw
  - Use bang (!) after optional to get value
  - Swift allows  for "if let" statement to conditionally unwrap optionals
 
-
-Lecture 2: Model View Controller (MVC) [https://www.youtube.com/watch?v=qiROf0aHI4k&index=14&list=PL9lXw_XXeiWQGrY5dl0IjFI7tOw_nfI91]
-**************************************************************************************
+## Lecture 2: Model View Controller (MVC)
  - Model, data (services, repositories, caches, etc.)
  - View, presentation (interface builder)
  - Controller, logic (UIViewController and derived classes)
@@ -46,13 +43,12 @@ Lecture 2: Model View Controller (MVC) [https://www.youtube.com/watch?v=qiROf0aH
  - Free initializer for classes is only available when all properties are initialized
  - In swift self keyword is equivalent to this keyword in C#
  - Swift has for/in syntax
- - Swift supports ranges aka "countable range" (0...6, 0..<n)
+ - Swift supports ranges aka "countable range" (0...6, 0..\<n)
  - structs can be copied just by assigning them to another variable or by appending them to a collection
  - Swift lazy keyword allows for lazy initialization of properties (con: can't use property observers)
  - Dictionaries have a special initialization syntax: var dict = [Int:String]()
 
-Lecture 3: Swift [https://www.youtube.com/watch?v=bZldHF69C_s&list=PL9lXw_XXeiWQGrY5dl0IjFI7tOw_nfI91&index=13]
-**************************************************************************************
+## Lecture 3: Swift 
  - Layout constraints are required due to variation in device sizes and device rotation
  - Control click view components and drag to create layout constraints to another view component
  - You can click constraints (blue lines) in iterface builder to inspect a constraint
@@ -105,8 +101,7 @@ Lecture 3: Swift [https://www.youtube.com/watch?v=bZldHF69C_s&list=PL9lXw_XXeiWQ
  - Protocols are contracts (aka interfaces) that are fundamental to Swift
 
 
-Lecture 4: Protocols and Closures
-**************************************************************************************
+## Lecture 4: Protocols and Closures
  - Swift is smart enough to regonize mutability of properties (var)
  - Protocol, a *type* which is a declaration of *functionality only* (aka contract/interface)
  - Three parts of a protocol:
@@ -134,7 +129,7 @@ Lecture 4: Protocols and Closures
  - Extensions can be used to create a default implementations of protocols
  - Functional prograaming, the "evolution" of object-oriented programming
   - Focuses more on the behavior of data structures rather than storage
- - You can use a range over collection indices: let foo = bar[baz..<bax]
+ - You can use a range over collection indices: let foo = bar[baz..\<bax]
  - String must be indexed carefully as they can contain unicode characters
  - Can use Array(string) to split strings by character
  - You can leave start and end indices off of ranges if type can be inferred
@@ -165,8 +160,7 @@ Lecture 4: Protocols and Closures
   - Closure captures can create a circular reference if the captured instance contains a reference to the closure
    - Circular reference can be broken using unowned modifier
 
-Lecture 5: Drawing in iOS
-**************************************************************************************
+## Lecture 5: Drawing in iOS
  - Methods can throw errors in Swift
  - Methods that throw are postfixed with, "throws" keyword
  - Thrown errors can be caught using do/catch blocks
@@ -250,8 +244,7 @@ Lecture 5: Drawing in iOS
  - func layoutSubviews() can be used to adjust subviews on bounds change
   - Not required if using Auto Layout constraints
 
-Lecture 6: Multitouch and Multiple MVCs
-**************************************************************************************
+## Lecture 6: Multitouch and Multiple MVCs
  - Subclass CoCoa Touch when creating new cutom view
  - Custom UIView doesn't have to implement draw (as its children can draw)
  - To add custom view to storyboard, draw UIView out from components and then set the subclass to custom class
@@ -271,8 +264,7 @@ Lecture 6: Multitouch and Multiple MVCs
  - Gestures have failed and cancelled states
  - Pan, pinch, rotation, swipe, tap, and along press
 
-Lecture 7: Multiple MVCs, Timer, and Animation
-**************************************************************************************
+## Lecture 7: Multiple MVCs, Timer, and Animation
  - Topics:
   - Multiple MVCs
    - Tab Bar, Navigation, and Split View Conrollers
