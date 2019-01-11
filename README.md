@@ -219,7 +219,7 @@
 - Frame != Bounds 100% of the time
 - To create a custom view drag out a UIView and then change its class to a custom subclass of UIView
 - You can create a view using: let newView = UIView(frame: customFrame) or: let newView = UIView()
-- To redraw view invoke either: setNeedsDisplay() or setNeedsDisplay(_ rect: CGRect)
+- To redraw view invoke either: setNeedsDisplay() or setNeedsDisplay(\_ rect: CGRect)
 - NEVER invoke draw method directly let the system do it
 - Can use Core Graphics to draw or draw a path using UIBezierPath
 - Core Graphics Concepts:
@@ -235,11 +235,11 @@
 - A view can be hidden using the isHidden property of UIView
 - Drawing Text within draw(rect: CGRect) can be done using NSAttributedString
 - NSRange has an init which can handle the String vs. NSString indexing weirdness
-- Can use preferredFont method to get expected font in draw(_ rect: CGRect)
+- Can use preferredFont method to get expected font in draw(\_ rect: CGRect)
 - UIFontMetrics can be used to scale font when drawing text
 - Images are added to assets.xcassets
 - Can create UIImage using UIImage(data: someData) ... aka "bag o' bits" style
-- By default, when the bounds of a UIView change, there is *no redraw*
+- By default, when the bounds of a UIView change, there is \*no redraw\*
 - UIView property contentMode can be used to adjust drawing when bounds change
 - func layoutSubviews() can be used to adjust subviews on bounds change
   - Not required if using Auto Layout constraints
@@ -265,14 +265,52 @@
 - Pan, pinch, rotation, swipe, tap, and along press
 
 ## Lecture 7: Multiple MVCs, Timer, and Animation
- - Topics:
- - Multiple MVCs
-    - Tab Bar, Navigation, and Split View Conrollers
-    - Demo: Theme Chooser in Concentration
-  - Timer
-  - Animation
- 
- 
+- Topics:
+- Multiple MVCs
+   - Tab Bar, Navigation, and Split View Conrollers
+   - Demo: Theme Chooser in Concentration
+- Timer
+- Animation
+- iOS provides some controllers whose view is other controllers (MVCs)
+  1. UITabbarController
+  2. UISplitViewController, puts two MVCs side-by-side
+    - Smaller MVC is called, "master"
+    - Larger MVC is called, "detail"
+  3. UINavigationController, the most flexible/powerful controller (stack of MVCs)
+    - Top are is drawn by the UINavigationController
+    - Contents of the top area are determined by the MVC currently presented
+    - Each MVC communicates contents using UIViewController#navigationItem
+    - Push/pop MVCs from navigation stack (popped MVCs are destroyed)
+    - UINavigationController#rootViewController is a very important property that sets the initial MVC
+- UIViewController#viewControllers contain child MVCs
+  - Navigation controller index 0 is root
+  - Tab controller index 0 is left tab controller
+- Every UIViewController knows the Split View, Tab Bar, or Navigation Controller it's current in
+  - There are UIViewController properties for determining parent(s)
+    1. tabBarController: UITabBarController?
+    2. splitViewController: UISplitViewController?
+    3. navigationController: UINavigationController?
+- Adding/removing MVCs from a UINavigation controller is generally done with segues but can be done programatically
+  - UIViewController#pushViewController(..)
+  - UIViewController#popViewController(..)
+- MVCs are wired up just like views by dragging them out into interface builder
+- UISplitViewController can only do its thing on iPad/iPhone+
+  - Because of this, we generally wrap the split view contrller in a navigation controller
+- Segues, allow for navigation between view controllers
+  - They ALWAYS CREATE A NEW MVC
+  - Types:
+    - Show segue, will push in a navigation controller, else modal
+    - Show detail, will show in a detail of a split view or will push in a navigation controller
+    - Modal segue, will take over the entire screen while the MVC is up
+    - Popover segue, will make the MVC appear in a little popover window
+- Create segues between MVCs using control-click drag
+- Segues should always be named
+- Can perform segues manually using #performSegue(..)
+- #preparse(for segue: UIStoryboardSegue, sender: Any?) -> Used to prepare the next controller being navigated to
+  - Probably the most important method in navigation
+- UIStoryboardSegue#destination is the UIViewController being navigated to (must be cast) -> use as? type cast
+- Preperation of segue occurs BEFORE outlets are bound (this is a very common bug)
+- UIViewController#shouldPerformSegue can be used to block segues
 
 
 

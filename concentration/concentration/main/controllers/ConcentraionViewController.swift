@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ConcentraionViewController: UIViewController {
 
     @IBOutlet var cardButtons: [UIButton]!
 
@@ -24,14 +24,18 @@ class ViewController: UIViewController {
 
         updateViewComponents()
     }
-
-    private let concentration = Concentration(
-            emojis: "👻💀☠️👽👾🤖🎃🦇"
-    )
     
+    var theme: String  = "👻💀☠️👽👾🤖🎃🦇" {
+        didSet {
+            concentration = Concentration(emojis: theme)
+        }
+    }
+
+    private lazy var concentration: Concentration = Concentration(emojis: theme)
+
     private let attributesFlipCount: [NSAttributedString.Key : Any] = [
         NSAttributedString.Key.strokeWidth: 5.0,
-        NSAttributedString.Key.strokeColor: #colorLiteral(red: 0, green: 1, blue: 0.8801295161, alpha: 1)
+        NSAttributedString.Key.strokeColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
     ]
 
     override func viewDidLoad() {
@@ -59,7 +63,7 @@ class ViewController: UIViewController {
             }
 
             cardButton.setTitle(nil, for: UIControl.State.normal)
-            cardButton.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.8801295161, alpha: 1)
+            cardButton.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         }
     }
     
