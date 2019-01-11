@@ -8,25 +8,50 @@
 
 import UIKit
 
+@IBDesignable
 class PlayingCardView: UIView {
-    
+
     private struct SizeRatio {
         static let cornerFontSizeToBoundsHeight: CGFloat = 0.085
         static let cornerRadiusToBoundsHeight: CGFloat = 0.06
         static let cornerOffsetToCornerRadius: CGFloat = 0.33
-        static let faceCardImageSizeToBoundsSize: CGFloat = 1
+        static let faceCardImageSizeToBoundsSize: CGFloat = 0.35
     }
     
-    var rank: Int = 5 { didSet { requestDisplayUpdate() } }
+    @IBInspectable
+    var rank: Int = 12 { didSet { requestDisplayUpdate() } }
+    @IBInspectable
     var suit: String = "♥️" { didSet { requestDisplayUpdate() } }
-    var isFaceUp: Bool = true { didSet { requestDisplayUpdate() } }
+    @IBInspectable
+    var isFaceUp: Bool = false { didSet { requestDisplayUpdate() } }
+    
+    var faceCardScale: CGFloat = SizeRatio.faceCardImageSizeToBoundsSize {
+        didSet {
+            requestDisplayUpdate()
+        }
+    }
+    
+    @objc func adjustFaceCardScale(byHandlingGestureRecognizedBy recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .changed, .ended:
+            faceCardScale *= recognizer.scale
+            recognizer.scale = 1
+        default:break
+        }
+    }
     
     private lazy var upperLeftCornerLabel = createCornerLabel()
     private lazy var lowerRightCornerLabel = createCornerLabel()
     private lazy var cardImageView = createCardImageView()
     
     private func createCardImageView() -> UIImageView {
-        let faceCardImage = UIImage(named: "CoStarIcon")
+        // This UIImage syntax is required to render image in storyboard
+        let faceCardImage = UIImage(
+            named: "CoStarIcon"
+            , in: Bundle(for: self.classForCoder)
+            , compatibleWith: traitCollection
+        )
+        
         let imageView = UIImageView(image: faceCardImage)
         
         imageView.contentMode = .scaleToFill
@@ -83,13 +108,13 @@ class PlayingCardView: UIView {
     }
     
     private func configureCardImageView(_ imageView: UIImageView) {
-        let cardWidth = bounds.size.width * 0.35
+        let cardWidth = bounds.size.width *  faceCardScale
         let size = CGSize(width: cardWidth, height: cardWidth)
         
         // Center the card
         imageView.center.x = bounds.midX
         imageView.center.y = bounds.midY
-        
+
         // Set the size of the card
         imageView.frame.size = size
         
@@ -98,7 +123,7 @@ class PlayingCardView: UIView {
         imageView.layer.masksToBounds = true
         
         // Hide card image if card isn't face up
-        imageView.isHidden = !isFaceUp
+        imageView.isHidden = isFaceUp
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
