@@ -14,7 +14,7 @@ class PlayingCardView: UIView {
         static let cornerFontSizeToBoundsHeight: CGFloat = 0.085
         static let cornerRadiusToBoundsHeight: CGFloat = 0.06
         static let cornerOffsetToCornerRadius: CGFloat = 0.33
-        static let faceCardImageSizeToBoundsSize: CGFloat = 0.75
+        static let faceCardImageSizeToBoundsSize: CGFloat = 1
     }
     
     var rank: Int = 5 { didSet { requestDisplayUpdate() } }
@@ -23,6 +23,18 @@ class PlayingCardView: UIView {
     
     private lazy var upperLeftCornerLabel = createCornerLabel()
     private lazy var lowerRightCornerLabel = createCornerLabel()
+    private lazy var cardImageView = createCardImageView()
+    
+    private func createCardImageView() -> UIImageView {
+        let faceCardImage = UIImage(named: "CoStarIcon")
+        let imageView = UIImageView(image: faceCardImage)
+        
+        imageView.contentMode = .scaleToFill
+
+        addSubview(imageView)
+        
+        return imageView
+    }
     
     private func createCornerLabel() -> UILabel {
         let label = UILabel()
@@ -70,9 +82,34 @@ class PlayingCardView: UIView {
         label.isHidden = !isFaceUp
     }
     
+    private func configureCardImageView(_ imageView: UIImageView) {
+        let cardWidth = bounds.size.width * 0.35
+        let size = CGSize(width: cardWidth, height: cardWidth)
+        
+        // Center the card
+        imageView.center.x = bounds.midX
+        imageView.center.y = bounds.midY
+        
+        // Set the size of the card
+        imageView.frame.size = size
+        
+        // Add rounded corners
+        imageView.layer.cornerRadius = 5
+        imageView.layer.masksToBounds = true
+        
+        // Hide card image if card isn't face up
+        imageView.isHidden = !isFaceUp
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        requestDisplayUpdate()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        configureCardImageView(cardImageView)
+
         configureCornerLabel(upperLeftCornerLabel)
         
         upperLeftCornerLabel.frame.origin = bounds.origin.offsetBy(
@@ -102,7 +139,7 @@ class PlayingCardView: UIView {
     override func draw(_ rect: CGRect) {
         drawCardBackground()
     }
-    
+
     private var cornerString: NSAttributedString {
         return createCenteredAttributedString(
             "\(rankString)\n\(suit)"

@@ -19,17 +19,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Vvg-oh-sRJ" customClass="PlayingCardView" customModule="Playing_Card" customModuleProvider="target">
-                                <rect key="frame" x="16" y="20" width="343" height="627"/>
+                                <rect key="frame" x="16" y="69" width="343" height="549"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Vvg-oh-sRJ" secondAttribute="height" multiplier="5:8" id="t9r-Fn-nRF"/>
+                                    <constraint firstAttribute="width" priority="999" constant="800" id="xmQ-zp-24C"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vvg-oh-sRJ" secondAttribute="trailing" constant="16" id="3ed-E7-5Vg"/>
-                            <constraint firstItem="Vvg-oh-sRJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="96M-nd-oXe"/>
-                            <constraint firstItem="Vvg-oh-sRJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JvT-aR-UV0"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vvg-oh-sRJ" secondAttribute="bottom" constant="20" id="lqG-FX-MaS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vvg-oh-sRJ" secondAttribute="trailing" constant="16" id="3ed-E7-5Vg"/>
+                            <constraint firstItem="Vvg-oh-sRJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="96M-nd-oXe"/>
+                            <constraint firstItem="Vvg-oh-sRJ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="9PJ-f8-ygI"/>
+                            <constraint firstItem="Vvg-oh-sRJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JvT-aR-UV0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Vvg-oh-sRJ" secondAttribute="bottom" constant="16" id="lqG-FX-MaS"/>
+                            <constraint firstItem="Vvg-oh-sRJ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="ytI-ba-7xn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
