@@ -19,12 +19,12 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                 return
             }
             
-            image = fetchImage()
+            updateImage()
         }
     }
     
     private var imageView = UIImageView()
-    
+
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.minimumZoomScale = 1/25
@@ -39,20 +39,21 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if imageUrl == nil {
-            imageUrl = URL(string: "https://solarsystem.nasa.gov/system/downloadable_items/2570_PIA21888.tif")
-        }
-    }
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if imageView.image == nil {
-            image = fetchImage()
+            updateImage()
+        }
+    }
+    
+    private func updateImage() {
+        DispatchQueue.global().async { [unowned self] in
+            let fetchedImage = self.fetchImage()
+            
+            DispatchQueue.main.async {
+                self.image = fetchedImage
+            }
         }
     }
     

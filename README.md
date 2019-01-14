@@ -480,6 +480,78 @@ Lifecycle Summary:
     - `func viewForZooming(in scrollView: UIScrollView) -> UIVIew`
   - Can zoom programatically
 
+## Lecture 10: Multithreading and Autolayout
+- Multithreading, how to handle long-running/blocking activity (i.e. network requests)
+  - Mostly about "queues" in iOS
+  - Functions (usually closures) are simply lined up in a queues
+  - These functions are then pulled off the queue and executed on an associated thread(s)
+  - Queues can be "serial" (one closure at a time) or "concurrent" (multiple threads servicing it)
+- Main Queue, a serial queue that ALL UI work is done on
+  - All UI activity MUST occur on this queue or a crash will occur
+  - Conversely, all non-UI activity should NOT be on the main queue
+  - This is done to create a highly responsive application
+  - We also do this because we want things that happen in the UI to be predictable (serial)
+  - Functions are pulled off and worked on in the main queue only when it is "quiet"
+- Global Queue, used for non-UI work that are usually global and concurrent
+- Get the main queue using: `DispatchQueue.main`
+- Global queues (varying levels of "Quality of Service"):
+  1. DispatchQoS.userInteractive, high priority, only do something short and quick
+    - Example: user is drag and dropping
+  2. DispatchQoS.userInitiated, high priority, but it might take a bit more time
+    - Something that takes some amount of time but it was asked for by user (button touch, etc.)
+  3. DispatchQoS.background, not directly initiated by user, so can run as slow as needed
+    - Things the user hasn't asked for right away, but things they expect
+  4. DispatchQos.utility, long-running background processes, low priority
+    - Things that an app wants to do but is a low priority
+
+Put a block of code on the queue (almost always use the first option):
+
+1. queue.async { .. }, put a closure on the queue and keep running on the current queue
+2. queue.sync { .. }, put a closure on the current queue and wait until the closure finishes on the other queue
+
+You may need to (rarely) create a non-blocking queue.
+
+1. Serial queue: `let serialQueue = DispatchQueue(label: "serialQueue")`
+  - Use only when you have multiple, serially dependent functions
+2. Concurrent queue: `let concurrentQueue = DispatchQueue(label: "concurrentQueue", attributes: .concurrent)`
+  - Almost never create a custom concurrent queue (should just use global queue)
+
+Can also do more with Grand Central Dispatch (GCD)
+ - Locking
+ - Protecting critical sections
+ - Readers and writers
+ - Synchronous dispatch
+ - And much more..
+
+There is another API to multithreading (usually we use the DispatchQueue API)
+ - APIs: OperationQueue and Operation
+ - Operation API is used for more compilicated dependency dependent multithreading
+
+- There are APIs on iOS where work is done on the background thread
+  - If API result needs to update UI dispatch it back to the main queue
+
+URLSession is the preferred way of making HTTP requests in iOS:
+
+```swift
+let session = URLSession(configuration: .default)
+
+if let url = URL(string: "http://stanford.edu/...") {
+  let task = session.dataTask(with: url) { (data: Data?, response, error) in
+    // This closure is executed off of the main thread (must dispatch UI work back to main)
+  }
+  
+  task.resume()
+}
+
+```
+
+
+
+
+
+
+
+
 
 
 

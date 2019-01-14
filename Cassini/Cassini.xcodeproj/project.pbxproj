@@ -14,6 +14,7 @@
 		0700E19021ED252100A8483B /* CassiniTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0700E18F21ED252100A8483B /* CassiniTests.swift */; };
 		0700E19B21ED252100A8483B /* CassiniUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0700E19A21ED252100A8483B /* CassiniUITests.swift */; };
 		0700E1AD21ED264A00A8483B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0700E1AC21ED264A00A8483B /* ImageViewController.swift */; };
+		072C412421ED395300829B86 /* ImageChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C412321ED395300829B86 /* ImageChooserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		0700E19A21ED252100A8483B /* CassiniUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CassiniUITests.swift; sourceTree = "<group>"; };
 		0700E19C21ED252100A8483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0700E1AC21ED264A00A8483B /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		072C412321ED395300829B86 /* ImageChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageChooserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				0700E1AC21ED264A00A8483B /* ImageViewController.swift */,
+				072C412321ED395300829B86 /* ImageChooserViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0700E1AD21ED264A00A8483B /* ImageViewController.swift in Sources */,
+				072C412421ED395300829B86 /* ImageChooserViewController.swift in Sources */,
 				0700E17B21ED252000A8483B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
