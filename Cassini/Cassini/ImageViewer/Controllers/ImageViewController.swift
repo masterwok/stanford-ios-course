@@ -8,23 +8,37 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     var imageUrl: URL? {
         didSet {
             imageView.image = nil
-            
+
             // Don't fetch the image if we're not on screen
             if view.window == nil {
                 return
             }
             
-            fetchImage()
+            image = fetchImage()
         }
     }
-
-    @IBOutlet weak var imageView: UIImageView!
     
+    private var imageView = UIImageView()
+    
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.minimumZoomScale = 1/25
+            scrollView.maximumZoomScale = 1.5
+            scrollView.delegate = self
+            
+            scrollView.addSubview(imageView)
+        }
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,21 +52,34 @@ class ImageViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if imageView.image == nil {
-            fetchImage()
+            image = fetchImage()
         }
     }
     
-    private func fetchImage() {
+    private var image: UIImage? {
+        get {
+            return imageView.image
+        }
+        set {
+            imageView.image = newValue
+            imageView.sizeToFit()
+            scrollView.contentSize = imageView.frame.size
+        }
+    }
+    
+    private func fetchImage() -> UIImage? {
         if imageUrl == nil {
-            return
+            return nil
         }
         
         // Try and return nil if an error occurs
         let urlContents = try? Data(contentsOf: imageUrl!)
         
         if let imageData = urlContents {
-            imageView.image = UIImage(data: imageData)
+            return UIImage(data: imageData)
         }
+        
+        return nil
     }
     
 }
