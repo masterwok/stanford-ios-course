@@ -27,18 +27,26 @@ class ViewController: UIViewController {
                 target: playingCardView
                 , action: #selector(PlayingCardView.adjustFaceCardScale(byHandlingGestureRecognizedBy:))
             )
-            
-            pinch.movement
 
             playingCardView.addGestureRecognizer(pinch)
         }
     }
+    
     @IBAction func onCardTap(_ sender: UITapGestureRecognizer) {
-        switch sender.state {
-        case .ended:
-            playingCardView.isFaceUp = !playingCardView.isFaceUp
-        default:break
+        if sender.state != .ended {
+            return
         }
+        
+        let cardView = sender.view as! PlayingCardView
+        
+        UIView.transition(
+            with: cardView
+            , duration: 0.6
+            , options: [.transitionFlipFromLeft]
+            , animations: {
+                cardView.isFaceUp = !cardView.isFaceUp
+            }
+        )
     }
     
     @objc private func nextCard() {

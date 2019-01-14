@@ -392,6 +392,8 @@ To break the circular reference, use weak references (weak keyword):
 
 ```swift
 class Zerg {
+  // weakSelf can be named self
+  // private var foo = { [weak self] in
   private var foo = { [weak weakSelf = self] in
     weakSelf?.bar()
   }
@@ -401,6 +403,20 @@ class Zerg {
 }
 ```
 
+- Unowned reference keyword can be used when we know a reference is in the heap (allows us to avoid optional reference)
+
+Flip animation example:
+
+```swift
+UIView.transition(
+    with: cardView
+    , duration: 0.6
+    , options: [.transitionFlipFromLeft]
+    , animations: {
+	cardView.isFaceUp = !cardView.isFaceUp
+    }
+)
+```
 
 
 
