@@ -311,7 +311,25 @@
 - UIStoryboardSegue#destination is the UIViewController being navigated to (must be cast) -> use as? type cast
 - Preperation of segue occurs BEFORE outlets are bound (this is a very common bug)
 - UIViewController#shouldPerformSegue can be used to block segues
-
+- Timer, use to execute code periodically
+  - Can be used to go off once at some point in the future, or to repeatedly go off
+  - If repeatedly, the system will not guarantee exactly when it goes off
+  - Generally not used for animation
+  - Invoked using Timer.scheduledTimer(..)
+  - Timer reference should be defined as weak (this allows timer to be set to nil as soon as it's stopped)
+  - Stop timer using Timer#.invalidate()
+    - Run loop will give up its strong pointer to this timer (if weak reference to Timer, then timer is set to nil)
+  - Tolerance, used to help system performance (allows late firing)
+    - i.e. fooTimer.tolerance = 10 // Allow timer to execute +/- 10 seconds
+    - Firing time is relative to the start of the timer (not the last time it fired), i.e. no "drift" due to tolerance
+  - Timers will not execute when the app is in the background (more on this in app-lifecycle section)
+- Kinds of animation:
+  - Animating UIView properties, changing things like frame to transparency
+  - Animating controller transitions (beyond scope of course)
+  - Core animation, underlying powerful animation framework (beyond scope of course)
+  - OpenGL and Metal, 3D
+  - SpriteKit, "2.5D" like mario animations (images moving around over each other, etc.)
+  - Dynamic Animation, animation using "physics"
 
 
 
