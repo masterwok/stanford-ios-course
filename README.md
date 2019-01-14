@@ -418,6 +418,75 @@ UIView.transition(
 )
 ```
 
+## Lecture 0: View Controller Lifecycle and Scroll Views
+- UIViewControllers have a lifecycle just like Activity instance on Android
+- A lifecycle is a sequence of invoked methods
+- Important because we might want to do certain things at different points in the lifecycle.
+- Lifecycle:
+  1. Preparation
+  2. Appear and disappear
+  3. Geometry changes
+  4. Low memory situations
+- Always invoke super method in lifecycle methods
+- viewDidLoad(), is used for primary initialization
+  - Do not put geometry-related setup here (bounds are not yet set)
+  - Only invoked once
+- viewWillAppear(), view controller is about to appear on screen (load data into view)
+  - Invoked everytime the view appears on screen
+- viewDidAppera(), invoked after the view moves on-screen
+  - Could be used to start an animation, timers, or variations
+  - Also a good place to perform an expensive task, i.e. network requests
+- viewDidDisappear(), used to clean up state (rarely used)
+- Geometry, should be done in viewWillLayoutSubvies() and viewDidLayoutSubviews()
+  - Usually don't need to do anything here because of Autolayout
+  - Don't set geometry in viewDidLoad()!
+- didReceiveMemoryWarning(), invoked when device is running low on memeory
+  - It's rare that this is invoked but it does happen
+  - This is iOS asking, "please release anything you're not using from the heap"
+  - iOS will kill your application if your app leaks a bunch of memory (don't be a bad programmer)
+- awakeFromNib(), invoked on all objects that originate in a storyboard
+  - Can initialize stuff very early
+  - It happens way before outlets are set and before you're prepared as part of a segue
+  - Should be used as a last resort
+  - Primarily used for situations where code has to be executed VERY EARLY in the lifecycle
+
+Lifecycle Summary:
+
+1. Instantiated (from storyboard usually)
+2. awakeFromNib (only if instantiated from a storyboard)
+3. Segue preperation happens
+4. Outlets are set
+5. viewDidLoad(), etc.
+6. viewWillAppear() and viewDidDisappear() invoked everytime controller view goes on or off screen
+  -The "geometry changed" methods might be called at any time after viewDidLoad
+  - viewWillAppear()
+  - viewWillDisappear()
+7. Anytime memory gets low iOS might invoke didReceiveMemeoryWarning
+
+- UIScrollView is added to a view just like any other view
+  - Biggest difference is specifying the contentSize property
+  - Can be dragged out
+  - Can select view and click embed in scroll view
+  - Create in code
+- ContentSize, tells the scroll view the size of the scroll area
+- contentOffset, the upper left-hand corner of what's being shown 
+- Zooming can be done using UIView#.transform property
+  - Will affect the content size of the scroll view
+  - UIScrollView modifies the transform of the view automatically when zooming
+  - Won't work without min/max zoom scale being set
+    - scrollView.minimumZoomScale = 0.5 // 0.5 means half its normal size
+    - scrollView.maximumZoomScale = 2.0 // 2.0 means twice its normal size
+  - Won't work without delegate method to specify view to zoom
+    - `func viewForZooming(in scrollView: UIScrollView) -> UIVIew`
+  - Can zoom programatically
+
+
+
+
+
+
+
+
 
 
 
