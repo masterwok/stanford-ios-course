@@ -375,7 +375,7 @@ Closure capturing:
 
 The following class has a circular reference:
 
-```
+```swift
 class Zerg {
   private var foo = {
     self.bar()
@@ -390,7 +390,7 @@ The circular reference is created because the foo closure references self and th
 
 To break the circular reference, use weak references (weak keyword):
 
-```
+```swift
 class Zerg {
   private var foo = { [weak weakSelf = self] in
     weakSelf?.bar()
