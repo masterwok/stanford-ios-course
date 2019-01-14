@@ -331,6 +331,77 @@
   - SpriteKit, "2.5D" like mario animations (images moving around over each other, etc.)
   - Dynamic Animation, animation using "physics"
 
+## Lecture 8: Animation
+- You can animate UIView properties (frame/center, bounds, transform, alpha, and background color)
+- Done with class UIViewPropertyAnimator using closures
+- UIViewPropertyAnimator.#runningPropertyAnimator(..) is the easiest way to use UIViewPropertyAnimator
+- You can chain animations as well
+- ANIMATION happens instantaneously, PRESENTATION happens over time
+- UIViewAnimationOptions
+  - beginFromCurrentState, pick up from other, in-progress animations of these properties
+    - Used quite a bit when animations overlap
+  - allowUserInteraction, allow gestures to get processed while animation is in progress
+  - layoutSubviews, animate the relayout of subviews with a parent's animation
+  - repeat, repeat indefinitely
+  - autoreverse, playing animation forwards, then backwards
+  - overrideInheritedDuration, if not set, use duration of any in-progress animation
+  - overrideInheritedCurve, if not set, use curve (e.g. ease-in/out) of in-progress animation
+  - allowAnimatedContent, if not set, just interpolate between currents and end "bits"
+  - curveEaseInEaseOut, slower at the beginning, normal throughout, then slow at end
+  - curveEaseIn, slower at the beginning, but then constant through the rest
+  - curveLinear, same speed throughout
+- UIView.transition(..), used to animate entire view
+  - Flipping, cross-dissolving, etc.
+- Dynamic Animation, set up physics relating animatable object and let them run until they resolve to stasis.
+    1. Create UIDynamicAnimator: var animator = UIDynamicAnimator(referenceView: UIView), must be root UIView to all views to be animated
+    2. Create and add UIDyanmicBehavior instances: let gravity = UIGravityBehavior(); animator.addBehavior(gravity)
+    3. Add items to behaviors: let item1: UIDyanmicItem = ?; gravity.addItem(item1);
+- If you change center or transform while the animator is running, then invoke UIDynamicAnimator#.updateItmeUsingCurrentState(item: UIDyanmmicItem)
+- Behaviors:
+  1. UIGravityBehavior, simple gravity
+  2. UIAttachmentBehavior, bar between two fixed items (can oscillate like a spring)
+  3. UICollisionBehavior, views bouncing off of each other
+    - Only check for collisions per frame so items can escape or move through boundaries
+  4. UISnapBehavior, snaps to a position but feels natural
+  5. UIPushBehavior, pushes a view (either once or continuously)
+  6. UIDynamicItemBehavior, meta-behavior like rotation, friction, and elasticity
+  7. UIDynamicBehavior, superclass of all behaviors (used to collect all other behaviors)
+    - Add children using UIDynamicBehavior#addChildBehavior(UIDyanmicBehavior)
+    - UIDynamicBehavior#.action property is invoked everytime a behavior is executed on a view
+- Stasis, view coming to stop
+- UIDyanimcAnimator delegate tells you when animation pauses
+
+Closure capturing:
+
+The following class has a circular reference:
+
+```
+class Zerg {
+  private var foo = {
+    self.bar()
+  }
+
+  private func bar() {
+  }
+}
+```
+
+The circular reference is created because the foo closure references self and the Zerg class references the foo closure.
+
+To break the circular reference, use weak references (weak keyword):
+
+```
+class Zerg {
+  private var foo = { [weak weakSelf = self] in
+    weakSelf?.bar()
+  }
+
+  private func bar() {
+  }
+}
+```
+
+
 
 
 
