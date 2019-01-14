@@ -10,6 +10,8 @@ import UIKit
 
 class ConcentraionViewController: UIViewController {
 
+    private lazy var concentration: Concentration = Concentration(emojis: theme)
+    
     @IBOutlet var cardButtons: [UIButton]!
 
     @IBOutlet weak var labelFlipCount: UILabel! {
@@ -25,13 +27,11 @@ class ConcentraionViewController: UIViewController {
         updateViewComponents()
     }
     
-    var theme: String  = "👻💀☠️👽👾🤖🎃🦇" {
+    var theme: String = Theme.Default {
         didSet {
             concentration = Concentration(emojis: theme)
         }
     }
-
-    private lazy var concentration: Concentration = Concentration(emojis: theme)
 
     private let attributesFlipCount: [NSAttributedString.Key : Any] = [
         NSAttributedString.Key.strokeWidth: 5.0,

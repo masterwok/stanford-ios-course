@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0700E16D21ECDA7A00A8483B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0700E16C21ECDA7A00A8483B /* Theme.swift */; };
 		07E7EDBB21E64FA30085B938 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7EDBA21E64FA30085B938 /* AppDelegate.swift */; };
 		07E7EDBD21E64FA30085B938 /* ConcentraionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7EDBC21E64FA30085B938 /* ConcentraionViewController.swift */; };
 		07E7EDC021E64FA30085B938 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E7EDBE21E64FA30085B938 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0700E16C21ECDA7A00A8483B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		07E7EDB721E64FA30085B938 /* concentration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = concentration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E7EDBA21E64FA30085B938 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E7EDBC21E64FA30085B938 /* ConcentraionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentraionViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				804947D963A240AB7746EDE3 /* Card.swift */,
 				804947197DE42CFDA00CBA8F /* Concentration.swift */,
+				0700E16C21ECDA7A00A8483B /* Theme.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				07E7EDBD21E64FA30085B938 /* ConcentraionViewController.swift in Sources */,
 				07E7EDBB21E64FA30085B938 /* AppDelegate.swift in Sources */,
 				80494A40EEAABE5B98372723 /* Card.swift in Sources */,
+				0700E16D21ECDA7A00A8483B /* Theme.swift in Sources */,
 				07F963A221E92ECF002B18D2 /* ThemeChooserViewController.swift in Sources */,
 				804940E5EE0A6DFCA779089A /* Concentration.swift in Sources */,
 			);
