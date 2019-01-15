@@ -565,6 +565,23 @@ What can we do based on our size class?
 - Most importantly, you can bind your CONSTRAINTS to your size class
   - Interface Builder has full support for this feature
 
+When deleting size class constraints **DO NOT DELETE THEM FROM DOCUMENT OUTLINE**
+
+Delete them by clicking the view and clicking the ruler (you'll know you've deleted them correctly when the constraint changes to a lighter shade).
+
+You can check the size class programmatically by doing the following (useful for presenting data in different ways):
+
+
+```swift
+
+// Set string based on vertical class
+let string = traitCollection.verticalSizeClass == .compact 
+  ? "foo" 
+  : "bar";
+
+
+func traitCollectionDidChange(..) // Lifecycle method required when using size properties manually
+```
 
 
 
