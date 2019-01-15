@@ -34,7 +34,7 @@ class ImageChooserViewController: UIViewController, UISplitViewControllerDelegat
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let viewController = segue.destination as! ImageViewController
+        let viewController = (segue.destination as! UINavigationController).visibleViewController as! ImageViewController
 
         let label = (sender as! UIButton).titleLabel!.text!
         

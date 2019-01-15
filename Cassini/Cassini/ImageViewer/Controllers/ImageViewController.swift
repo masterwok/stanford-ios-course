@@ -24,7 +24,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private var imageView = UIImageView()
+    private var requestWorkItem: DispatchWorkItem?
 
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.minimumZoomScale = 1/25
@@ -48,13 +51,24 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func updateImage() {
-        DispatchQueue.global().async { [unowned self] in
-            let fetchedImage = self.fetchImage()
+        spinner.startAnimating()
+        
+        // Cancel any previous work item
+        requestWorkItem?.cancel()
+        
+        // Should hold weak self reference because controller may be nil if closure outlives the controller
+        // Don't need a weak reference due to circular reference because self does not hold a reference to
+        // the closure.
+        requestWorkItem = DispatchWorkItem { [weak self] in
+            let fetchedImage = self?.fetchImage()
             
             DispatchQueue.main.async {
-                self.image = fetchedImage
+                self?.image = fetchedImage
             }
         }
+
+        // Dispatch work item to queue
+        DispatchQueue.global(qos: .userInitiated).async(execute: requestWorkItem!)
     }
     
     private var image: UIImage? {
@@ -65,18 +79,23 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView.contentSize = imageView.frame.size
+            self.spinner.stopAnimating()
         }
     }
     
     private func fetchImage() -> UIImage? {
-        if imageUrl == nil {
+        let url = imageUrl
+        
+        if url == nil {
             return nil
         }
         
         // Try and return nil if an error occurs
         let urlContents = try? Data(contentsOf: imageUrl!)
-        
-        if let imageData = urlContents {
+
+        if let imageData = urlContents
+            // Don't return image if url changed during request
+            , url == imageUrl {
             return UIImage(data: imageData)
         }
         

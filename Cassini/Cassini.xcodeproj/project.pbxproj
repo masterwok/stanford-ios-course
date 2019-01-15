@@ -15,6 +15,7 @@
 		0700E19B21ED252100A8483B /* CassiniUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0700E19A21ED252100A8483B /* CassiniUITests.swift */; };
 		0700E1AD21ED264A00A8483B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0700E1AC21ED264A00A8483B /* ImageViewController.swift */; };
 		072C412421ED395300829B86 /* ImageChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072C412321ED395300829B86 /* ImageChooserViewController.swift */; };
+		07CE272121EE30B50039F921 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE272021EE30B50039F921 /* UIViewControllerExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		0700E19C21ED252100A8483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0700E1AC21ED264A00A8483B /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		072C412321ED395300829B86 /* ImageChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageChooserViewController.swift; sourceTree = "<group>"; };
+		07CE272021EE30B50039F921 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		0700E17921ED252000A8483B /* Cassini */ = {
 			isa = PBXGroup;
 			children = (
+				07CE271F21EE30A40039F921 /* Extensions */,
 				0700E17A21ED252000A8483B /* AppDelegate.swift */,
 				0700E1A821ED253500A8483B /* ImageViewer */,
 				0700E18121ED252100A8483B /* Assets.xcassets */,
@@ -158,6 +161,14 @@
 				0700E18321ED252100A8483B /* LaunchScreen.storyboard */,
 			);
 			path = Launch;
+			sourceTree = "<group>";
+		};
+		07CE271F21EE30A40039F921 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				07CE272021EE30B50039F921 /* UIViewControllerExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07CE272121EE30B50039F921 /* UIViewControllerExtensions.swift in Sources */,
 				0700E1AD21ED264A00A8483B /* ImageViewController.swift in Sources */,
 				072C412421ED395300829B86 /* ImageChooserViewController.swift in Sources */,
 				0700E17B21ED252000A8483B /* AppDelegate.swift in Sources */,
