@@ -546,6 +546,25 @@ if let url = URL(string: "http://stanford.edu/...") {
 ```
 
 - DispatchWorkItem can be used to cancel pending asynchronous work
+- Autolayout is sometimes not enough
+  - Sometimes the geometry changes so dramatically that simple autolayout can't cope
+- A UIViewController#.size property says what sort of room it has to layout in
+  - It's not an exact number or dimension, it's eitehr "compact" or "regular" width or height
+- iPhone:
+  - All iPhones in portrait are compact in width and regular in height
+  - All non-Plus size iPhones in landscape mode are compact in both directions
+- iPhone Plus:
+  - iPhone plus is also compact in width and regular in height in portrait
+  - When in landsacpe it has regular width and compact height
+- iPad:
+  - Always regular in both directions
+  - Depending on the environment and MVC it's in, it may be compact (e.g. UISplitViewController)
+
+What can we do based on our size class?
+- You can vary many properties in the UIView
+- Most importantly, you can bind your CONSTRAINTS to your size class
+  - Interface Builder has full support for this feature
+
 
 
 
