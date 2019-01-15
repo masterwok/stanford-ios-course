@@ -583,6 +583,117 @@ let string = traitCollection.verticalSizeClass == .compact
 func traitCollectionDidChange(..) // Lifecycle method required when using size properties manually
 ```
 
+## Lecture 11: Drag and Drop, UITableView and UICollectionView
+- While dragging, user can use other finger to interact with other application
+
+A view adds an interaction for drag and drop similarily to how gesture recongnizers are registered:
+
+```swift
+let dragInteraction = UIDragInteraction(delegate: someDelegate)
+view.addInteraction(dragInteraction)
+```
+
+After registration, the delegate will be invoked if a drag occurs on the view.
+
+When the user make are dragging gesture, the delegate invokes:
+
+```swift
+func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem]
+```
+
+The view returns the items it is willing to have dragged from the view. If nil is returned, then nothing is dragged.
+
+- Drag and drop is completely asynchronous
+
+Do the following to decalre UIDragItem instances:
+
+```swift
+let dragItem = UIDragItem(itemProvider: NSItemProvider(object: provider))
+```
+
+Built in providers:
+- NSAttributedString
+- NSString
+- UIImage
+- NSURL
+- UIColor
+- MKMapItem
+- CNContact
+
+You can declare your own drag and drop providers, but that is beyond the scope of this course.
+
+Note that some of the providers are prefixed with NS, this means you have to use `as?` to cast them.
+
+You can add items to a drag by doing the following:
+
+```swift
+func dragInteraction(_ interaction: UIDragInteraction, itemsForAddingTo sesssion: UIDragSession) -> [UIDragItem]
+```
+
+### Drag Destination:
+
+When a drag moves over a view with a **UIDragInteraction**, the following is invoked:
+
+```swift
+func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDragSession) -> Bool
+```
+
+At which point the delegate can refuse the drop before it even gets started.
+
+To determine if this is a valid destination for the items being dragged, you may do the following:
+
+```swift
+let stringAvailable = session.canLoadObjects(ofClass: NSAttributedString.self)
+let imageAvailable = session.canLoadObjects(ofClass: UIImage.self)
+```
+
+Then return whether or not you want to act as a destination for the items (canHandle).
+
+If accepted, the destination will have the following invocation:
+
+```swift
+func dropInteraction(
+  _ interaction: UIDropInteraction
+  , sessionDidUpdate session: UIDragSession
+) -> UIDropProposal
+```
+
+To which you respond with: `UIDropProposal(operation: .copy)` (or .move, .cancel)
+
+.cancel, drop will be refused
+.copy, drop will be accepted
+.move, drop would be accepted and would move the item (only for drags within an app)
+
+If all goes well, the following will be invoked:
+
+```swift
+func dropeInteraction(
+  _ interaction: UIDropInteraction
+  , performDrop session: UIDropSession
+```
+
+This method will be implemented by invoking `loadObjects(ofClass:)` on the session. This method will 
+go and fetch the data **asynchronously** from whomever the drag source is.
+
+```swift
+session.loadObjects(ofClass: NSAttributedString.self) { theStrings in
+  // Do somehting with the dropped NSAttributedStrings (executed on main thread)
+}
+```
+
+You can call multiple `loadObjects(ofClass:)` for different types. Normally nothing else is done within dropInteraction(performDrop:).
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
