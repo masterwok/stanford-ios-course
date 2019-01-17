@@ -684,6 +684,151 @@ session.loadObjects(ofClass: NSAttributedString.self) { theStrings in
 You can call multiple `loadObjects(ofClass:)` for different types. Normally nothing else is done within dropInteraction(performDrop:).
 
 
+### UITable and UICollection View
+- Both are subclasses of UIScrollView
+- Display unbounded amounts of information
+- UITableView presents information in a long (possibly sectioned) list
+- UICollectionView presents information in a custom 2D format (usually "flowing" like in text flows)
+  - Default is "flow" layout
+- They are very similar in their API
+
+#### UITableView
+
+Four built in ways ways of displaying simple information:
+1. Subtitle Style (title and description)
+2. Left Detail Style, everything is left aligned
+3. Right Detail Style, detailed information is on the right
+4. Basic Style, no description displayed
+5. Custom Style, allows for custom view and is very powerful (common)
+
+UITableView allows rows to be grouped into seections (default is plain style)
+
+#### UICollectionView
+
+- A UICollectionView is configurable to show information in any 2D arrangement.
+- By default entries are shown in "text flow" style (left-to-right and top-to-bottom). 
+- There is only "custom" layout of information.
+
+#### Usage of UITableView and UICollectionView
+
+Interface builder not only provides UITableView and UICollectionView but also UITableViewController and UICollectionViewController.
+
+If your interface is entirely consists of either a UITableView or UICollectionView use the controllers.
+
+**Where does the data come from?**
+The most important thing to remember is how they get the data they're presenting.
+
+Each type has a property called "datasource"  which is a protocol with methods that supply the data (exactly like delegates).
+
+Each type also has a delegate  which handles presentation logic.
+
+UITableView:
+```swift
+var dataSource: UITableViewDataSource
+var delegate: UITableViewDelegate
+```
+
+UICollectionView:
+```swift
+var dataSource: UICollectionViewDataSource
+var delegate: UICollectionViewDelegate
+```
+
+These properties are implicitly st for you if you use the prepackaged MVCs.
+
+If you drag out a UITableView or UICollectionView (not the controllers), then you must set these vars yourself.
+
+The protocol for retrieving data has three main methods:
+
+```swift
+// UITableView
+func numberOfSection(in tableView: UITableView) -> Int
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+
+// UICollectionView
+func numberOfSection(in collectionView: UICollectionView) -> Int
+func collectionView(_ tableView: UICollectionView, numberOfRowsInSection section: Int) -> Int
+func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionView
+```
+
+**Index Path**, specifies which row (UITableView) or cell (UICollectionView) we're talking about.
+
+To get the section the row or cell is in use: `indexPath.section`
+
+To get the row (while working with UITableView) use: `indexPath.row`
+To get the cell (while working with UICollectionView) use: `indexPath.item`
+
+A UITableView will reuse cells for efficancy.
+- When a cell moves off screen, it goes into a reuse pool
+- When loading a cell we invoke `dequeueReusableCell(withIdentifier:)` to get a cell from this pool
+- If the pool is empty, then a cell is created by copying a prototype cell configured in the storyboard
+
+Implementing UITableView#.cellForRowAt:
+```swift
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  let prototype = decision 
+    ? "FoodCell" 
+    : "CustomFoodCell" 
+
+  let cell = tableView.dequeueReusableCell(withIdentifier: prototype, for: indexPath)
+
+  // Configure the cell
+  cell.textLabel?.text = food(at: indexPath)
+  cell.detailTextLabel?.text = emoji(at: indexPath)
+}
+```
+
+Custom UITableViewCell:
+-We need outlets to the custom components within the cell.
+-Outlets must be defined on the view (not the controller)
+
+For example:
+```swift
+class CustomTableViewCell : UITableViewCell {
+  @IBOutlet var name: UILabel
+  @IBOutlet var emoji: UILabel
+  @IBOutlet var details: UILabel
+}
+```
+
+In order to access these outlets, we must cast the cell in the `cellForRowAt` implementation.
+
+UITableView can set its content to static cells. This will allow you to define **each** cell within interface builder.
+1. Set "Content" to "Static Cells" value
+2. Inspect the "Table View" section in the document outline and then add rows using the inspector
+
+-You can set the "Detail Disclosure Accessory" to add two segues to the same table row.
+
+Data can be reloaded by invoking `func reloadData()` can also refresh by row.
+
+A row can be set using static height with the `UITableView#.rowHeight: CGFloat` or it can be determined using autolayout with `UITableViewAutomaticDimension`
+
+If you do automatic, help the table view by setting the `estimatedRowHeight`
+
+You can also implement `func tableView(UITableView, {estimated}heightForRowAt indexPath: IndexPath) -> CGFloat` to optimize height calculations.
+
+
+### Table View Headers
+
+Setting a header for each section can be done by implementing: `func tableView(_ tableView: titleForHeaderInSection section: Int) -> String?`
+
+You can also set a custom view header.
+
+### Collection View Headers
+
+1. Inspec the collection view and enable the section header
+2. Must create a subclass of UICollectionReusableView
+3. Must implement `collectionView#.viewForSupplementatryElementOfKind`
+4. Use `deqeueReusableSupplementaryView`
+
+
+
+
+
+
+
+
 
 
 
