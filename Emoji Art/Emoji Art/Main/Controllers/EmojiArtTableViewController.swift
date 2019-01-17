@@ -14,9 +14,7 @@ class EmojiArtTableViewController: UITableViewController {
 
     @IBAction func barButtonAddDocumentOnTouchUpInside(_ sender: UIBarButtonItem) {
         emojiArtDocuments = "Untitled".ensureUnique(forItems: emojiArtDocuments)
-        
         let indexPath = IndexPath(item: emojiArtDocuments.count - 1, section: 0)
-        
         tableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.fade)
     }
     
@@ -39,6 +37,13 @@ class EmojiArtTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return false
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            emojiArtDocuments.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
