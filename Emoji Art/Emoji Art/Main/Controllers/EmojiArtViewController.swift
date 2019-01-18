@@ -10,12 +10,22 @@ import UIKit
 
 class EmojiArtViewController: UIViewController
     , UIDropInteractionDelegate
-    , UIScrollViewDelegate {
+    , UIScrollViewDelegate
+    , UICollectionViewDataSource
+    , UICollectionViewDelegate
+, UICollectionViewDelegateFlowLayout {
     
+    private var emojis = "👻🚴🏻‍♂️🦚🦞🦜🦘🕊🦒🦕🐍🐡🐈🦡☄️".map { String($0) }
     private var viewEmojiArt = EmojiArtView()
 
     @IBOutlet weak var constraintScrollViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintScrollViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewEmojis: UICollectionView! {
+        didSet {
+            collectionViewEmojis.dataSource = self
+            collectionViewEmojis.delegate = self
+        }
+    }
     
     @IBOutlet weak var viewDropZone: UIView!{
         didSet {
@@ -98,5 +108,25 @@ class EmojiArtViewController: UIViewController
             }
         }
     }
+
+    //MARK: - UICollectionViewDataSource Implmentation
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return emojis.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "Emoji Cell"
+            , for: indexPath
+        )
+        
+        (cell as? EmojiCollectionViewCell)?.labelEmoji.text = emojis[indexPath.row]
+
+
+        return cell
+    }
+    
+    
 
 }

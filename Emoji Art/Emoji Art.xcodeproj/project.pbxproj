@@ -18,6 +18,7 @@
 		07CE273921EE7D2B0039F921 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07CE273721EE7D2B0039F921 /* LaunchScreen.storyboard */; };
 		07CE274421EE7D2B0039F921 /* Emoji_ArtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE274321EE7D2B0039F921 /* Emoji_ArtTests.swift */; };
 		07CE274F21EE7D2B0039F921 /* Emoji_ArtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE274E21EE7D2B0039F921 /* Emoji_ArtUITests.swift */; };
+		07FFD07021F236FF00D9506D /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FFD06F21F236FF00D9506D /* EmojiCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		07CE274A21EE7D2B0039F921 /* Emoji ArtUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Emoji ArtUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07CE274E21EE7D2B0039F921 /* Emoji_ArtUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji_ArtUITests.swift; sourceTree = "<group>"; };
 		07CE275021EE7D2B0039F921 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07FFD06F21F236FF00D9506D /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				0742A3D621EE7E9D00E32634 /* EmojiArtView.swift */,
+				07FFD06F21F236FF00D9506D /* EmojiCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07FFD07021F236FF00D9506D /* EmojiCollectionViewCell.swift in Sources */,
 				07CE272F21EE7D290039F921 /* AppDelegate.swift in Sources */,
 				0731966F21F11E7000FB22C4 /* EmojiArtTableViewController.swift in Sources */,
 				0731967221F1217300FB22C4 /* StringArrayExtensions.swift in Sources */,
