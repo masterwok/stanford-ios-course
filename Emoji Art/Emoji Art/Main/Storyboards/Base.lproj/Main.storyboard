@@ -21,37 +21,44 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mks-EV-xKI">
                                 <rect key="frame" x="0.0" y="20" width="703.5" height="748"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nCw-nG-0yQ" customClass="EmojiArtView" customModule="Emoji_Art" customModuleProvider="target">
+                                    <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I83-yh-fTz">
                                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="748"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
+                                        <constraints>
+                                            <constraint firstAttribute="width" priority="250" constant="703.5" id="JEH-S5-Gtg"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="250" constant="748" id="fj0-4j-dig"/>
+                                        </constraints>
+                                    </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.90357164119809408" green="0.90357164119809408" blue="0.90357164119809408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="nCw-nG-0yQ" secondAttribute="bottom" id="5h8-3C-VbM"/>
-                                    <constraint firstAttribute="trailing" secondItem="nCw-nG-0yQ" secondAttribute="trailing" id="HdJ-1D-ZY9"/>
-                                    <constraint firstItem="nCw-nG-0yQ" firstAttribute="top" secondItem="mks-EV-xKI" secondAttribute="top" id="Rq7-1T-Xeu"/>
-                                    <constraint firstItem="nCw-nG-0yQ" firstAttribute="leading" secondItem="mks-EV-xKI" secondAttribute="leading" id="yD3-MY-rcg"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="I83-yh-fTz" secondAttribute="trailing" id="4p1-iM-RG6"/>
+                                    <constraint firstItem="I83-yh-fTz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mks-EV-xKI" secondAttribute="top" id="Bpu-2l-jbh"/>
+                                    <constraint firstItem="I83-yh-fTz" firstAttribute="centerY" secondItem="mks-EV-xKI" secondAttribute="centerY" id="Ex1-B6-hXV"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="I83-yh-fTz" secondAttribute="bottom" id="OHe-VY-gFR"/>
+                                    <constraint firstItem="I83-yh-fTz" firstAttribute="centerX" secondItem="mks-EV-xKI" secondAttribute="centerX" id="Y4h-5E-dLL"/>
+                                    <constraint firstItem="I83-yh-fTz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mks-EV-xKI" secondAttribute="leading" id="YVv-k6-PBU"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="mfy-ln-rBO" firstAttribute="bottom" secondItem="mks-EV-xKI" secondAttribute="bottom" id="05o-Up-Dg6"/>
-                            <constraint firstItem="mfy-ln-rBO" firstAttribute="trailing" secondItem="mks-EV-xKI" secondAttribute="trailing" id="10A-bh-oVo"/>
-                            <constraint firstItem="mks-EV-xKI" firstAttribute="leading" secondItem="mfy-ln-rBO" secondAttribute="leading" id="Nlf-B6-OXb"/>
-                            <constraint firstItem="mks-EV-xKI" firstAttribute="top" secondItem="mfy-ln-rBO" secondAttribute="top" id="WMZ-Kh-JTY"/>
+                            <constraint firstItem="mfy-ln-rBO" firstAttribute="trailing" secondItem="mks-EV-xKI" secondAttribute="trailing" id="1GO-Ej-YKo"/>
+                            <constraint firstItem="mfy-ln-rBO" firstAttribute="bottom" secondItem="mks-EV-xKI" secondAttribute="bottom" id="7GY-Zf-X72"/>
+                            <constraint firstItem="mks-EV-xKI" firstAttribute="top" secondItem="mfy-ln-rBO" secondAttribute="top" id="9uL-VP-WbJ"/>
+                            <constraint firstItem="mks-EV-xKI" firstAttribute="leading" secondItem="mfy-ln-rBO" secondAttribute="leading" id="PSy-ej-Erl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mfy-ln-rBO"/>
                     </view>
                     <connections>
+                        <outlet property="constraintScrollViewHeight" destination="fj0-4j-dig" id="t5H-Fw-roC"/>
+                        <outlet property="constraintScrollViewWidth" destination="JEH-S5-Gtg" id="MX1-dy-vZf"/>
+                        <outlet property="scrollViewDropZone" destination="I83-yh-fTz" id="VJN-ey-nhw"/>
                         <outlet property="viewDropZone" destination="mks-EV-xKI" id="or0-3S-Ol2"/>
-                        <outlet property="viewEmojiArt" destination="nCw-nG-0yQ" id="Ww7-gz-lLu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0S-fv-SS0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="251" y="1212"/>
+            <point key="canvasLocation" x="250.78124999999997" y="1211.71875"/>
         </scene>
         <!--Document Picker-->
         <scene sceneID="YKg-s8-oaG">

@@ -822,6 +822,9 @@ You can also set a custom view header.
 3. Must implement `collectionView#.viewForSupplementatryElementOfKind`
 4. Use `deqeueReusableSupplementaryView`
 
+## Lecture 12: Emoji Art Demo and UITextField
+
+**UITextField,** editable text input control
 
 
 

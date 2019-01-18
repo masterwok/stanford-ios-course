@@ -18,6 +18,16 @@ class EmojiArtTableViewController: UITableViewController {
         tableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.fade)
     }
     
+    // MARK: - UIViewController Lifecycle
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if splitViewController?.preferredDisplayMode != .primaryOverlay {
+            splitViewController?.preferredDisplayMode = .primaryOverlay
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

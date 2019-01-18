@@ -8,16 +8,63 @@
 
 import UIKit
 
-class EmojiArtViewController: UIViewController, UIDropInteractionDelegate {
+class EmojiArtViewController: UIViewController
+    , UIDropInteractionDelegate
+    , UIScrollViewDelegate {
+    
+    private var viewEmojiArt = EmojiArtView()
 
+    @IBOutlet weak var constraintScrollViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var constraintScrollViewWidth: NSLayoutConstraint!
+    
     @IBOutlet weak var viewDropZone: UIView!{
         didSet {
             viewDropZone.addInteraction(UIDropInteraction(delegate: self))
         }
     }
+
+    @IBOutlet weak var scrollViewDropZone: UIScrollView! {
+        didSet {
+            scrollViewDropZone.minimumZoomScale = 0.1
+            scrollViewDropZone.maximumZoomScale = 5.0
+            scrollViewDropZone.delegate = self
+            scrollViewDropZone.addSubview(viewEmojiArt)
+        }
+    }
+
+    private var emojiArtBackgroundImage: UIImage? {
+        get {
+            return self.viewEmojiArt.backgroundImage
+        }
+        set {
+            DispatchQueue.main.async {
+                self.viewEmojiArt.backgroundImage = newValue
+                let size = newValue?.size ?? CGSize.zero
+                
+                self.viewEmojiArt.frame = CGRect(origin: CGPoint.zero, size: size)
+                self.scrollViewDropZone?.contentSize = size
+                
+                self.constraintScrollViewWidth?.constant = size.width
+                self.constraintScrollViewHeight?.constant = size.height
+                
+                if let dropZone = self.viewDropZone, size.width > 0, size.height > 0 {
+                    self.scrollViewDropZone?.zoomScale  = max(dropZone.bounds.size.width / size.width, dropZone.bounds.size.height / size.height)
+                }
+            }
+        }
+    }
     
-    @IBOutlet weak var viewEmojiArt: EmojiArtView!
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return viewEmojiArt
+    }
     
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        constraintScrollViewWidth.constant = scrollView.contentSize.width
+        constraintScrollViewHeight.constant = scrollView.contentSize.height
+
+        print("Width: \(constraintScrollViewWidth.constant), Height: \(constraintScrollViewHeight.constant)")
+    }
+
     func dropInteraction(
         _ interaction: UIDropInteraction
         , canHandle session: UIDropSession
@@ -40,20 +87,16 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate {
         session.loadObjects(ofClass: NSURL.self) { urls in
             if let url = urls.first as? URL {
                 ImageFetcher.fetch(url: url) { (url, image) in
-                    self.viewEmojiArt.backgroundImage = image
+                    self.emojiArtBackgroundImage = image
                 }
             }
         }
         
         session.loadObjects(ofClass: UIImage.self) { images in
             if let image = images.first as? UIImage {
-                self.viewEmojiArt.backgroundImage = image
+                self.emojiArtBackgroundImage = image
             }
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
 
 }
